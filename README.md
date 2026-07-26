@@ -2,6 +2,25 @@
 
 # Powder Of Life
 
+> ## This fork: Arduino Nano 33 BLE support
+>
+> This is a fork of [andrewfrueh/PowderOfLife](https://github.com/andrewfrueh/PowderOfLife) that
+> ports the Arduino library to the **Nano 33 BLE / Nano 33 BLE Sense Rev2** (nRF52840, Mbed core)
+> while keeping classic AVR Nano/Uno compatibility. Upstream targets the classic ATmega328P Nano
+> and does not compile on Mbed-based boards.
+>
+> **Quick start (Nano 33 BLE):**
+> 1. Download `PowderOfLife.zip` from the [latest release](../../releases/latest)
+>    (or from [`Arduino/`](Arduino/) in this repo).
+> 2. Arduino IDE → Sketch → Include Library → **Add .ZIP Library**.
+> 3. Boards Manager → install **Arduino Mbed OS Nano Boards**; select *Arduino Nano 33 BLE*.
+> 4. Read [`PORTING-NANO33BLE.md`](PORTING-NANO33BLE.md) — it lists the code changes and the
+>    **3.3 V wiring rule** (nRF52840 pins are not 5 V tolerant; wire sensors to 3V3, never 5 V).
+>
+> Library source lives at [`Arduino/PowderOfLife/`](Arduino/PowderOfLife/) (upstream ships it
+> only as a zip); the zip is rebuilt from that source. Compile-verified for
+> `arduino:mbed_nano:nano33ble` and `arduino:avr:nano`. The Unity side is unchanged from upstream.
+
 ## Introduction
 
 Welcome! Glad you could stop by.
