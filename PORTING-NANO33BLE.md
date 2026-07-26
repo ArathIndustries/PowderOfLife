@@ -69,10 +69,14 @@ model, and all examples. Protocol-compatible with upstream on both sides.
 
 - Compile-verified with `arduino-cli` for `arduino:mbed_nano:nano33ble` **and**
   `arduino:avr:nano` (no AVR regression). See repo history for the exact run.
-- Not yet verified on physical hardware. First hardware test should be
+- Hardware-verified 2026-07-26: potentiometers → board → serial → Unity digital twin
+  confirmed working end-to-end with this fork's library and Unity package. The DTR fix
+  (change 5 above) was required in that test — the stock Unity package received no data.
+- Suggested first test on a new setup:
   `File > Examples > Powder Of Life > 01_Starting_Out > Analog_Sensor` with the Serial
   Monitor, then the two-pot digital-twin sketch
-  (`03_Inter-Environment_Networks > Analog_Sensor_Lerped_Serial_Output_x2`).
+  (`03_Inter-Environment_Networks > Analog_Sensor_Lerped_Serial_Output_x2`) with the
+  `Serial Communication > Potentiometer Lever Digital Twin` example scene.
 
 ## Hardware wiring for the digital-twin controller (two B10K pots)
 
