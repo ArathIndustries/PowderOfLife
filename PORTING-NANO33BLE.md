@@ -85,6 +85,27 @@ pots across 5 V; on this board that damages the MCU.
    and opening the port does not reset the board. If an upload hangs, double-tap the reset
    button (onboard LED pulses) and select the new port that appears.
 
+## Troubleshooting
+
+### "library install failed … already installed, but with a different version: Powder Of Life@0.1"
+
+Full error: `error: 13 Internal: library install failed: moving extracted archive to destination
+dir: library Powder Of Life is already installed, but with a different version: Powder Of Life@0.1`
+
+Cause: upstream's 0.1 library is already installed, and the Arduino IDE will not overwrite a
+zip-installed library with a different version. It also cannot update it, because this library
+is not in the Library Manager index. The old copy must be deleted by hand:
+
+1. Close the Arduino IDE.
+2. Open the sketchbook libraries folder:
+   - Windows: `C:\Users\<name>\Documents\Arduino\libraries\`
+   - macOS: `~/Documents/Arduino/libraries/`
+   - Linux: `~/Arduino/libraries/`
+   - Custom sketchbook location: File > Preferences > "Sketchbook location", then `libraries/`.
+3. Delete the `PowderOfLife` folder.
+4. Reopen the IDE, then Sketch > Include Library > Add .ZIP Library with this fork's zip.
+5. Verify: `libraries/PowderOfLife/library.properties` now reads `version=0.2.0`.
+
 ## License
 
 Upstream is GPL v2 (code) / CERN OHL-W v2 (hardware) / CC BY-SA 4.0 (docs); this fork keeps
