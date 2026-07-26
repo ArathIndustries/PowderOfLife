@@ -19,7 +19,11 @@
 >
 > Library source lives at [`Arduino/PowderOfLife/`](Arduino/PowderOfLife/) (upstream ships it
 > only as a zip); the zip is rebuilt from that source. Compile-verified for
-> `arduino:mbed_nano:nano33ble` and `arduino:avr:nano`. The Unity side is unchanged from upstream.
+> `arduino:mbed_nano:nano33ble` and `arduino:avr:nano`.
+>
+> **Use this fork's Unity package too** ([`Unity/`](Unity/)): it contains one required fix —
+> DTR assertion on the serial port, without which a Nano 33 BLE never sends data to Unity.
+> The serial protocol itself is unchanged from upstream.
 
 > [!WARNING]
 > **⚡ The Nano 33 BLE is a 3.3 V board — its pins are NOT 5 V tolerant.** The original

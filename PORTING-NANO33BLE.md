@@ -52,9 +52,18 @@ SoftwareSerial), but three latent assumptions broke or degraded on 32-bit ARM.
 
 4. **`library.properties`** — version 0.2.0, fork metadata. `architectures=*` retained.
 
+5. **Unity package: `SerialNode.cs` — DTR assertion (required for the Nano 33 BLE).**
+   Upstream opens the port with only `new SerialPort(...)` + `Open()`. .NET defaults
+   `DtrEnable` to false, and native-USB CDC boards (the Nano 33 BLE) do not transmit until
+   the host asserts DTR — with the stock package the board enumerates, Unity opens the port,
+   and no data ever arrives. This fork's `Unity/PowderOfLife.unitypackage` sets
+   `serialPort.DtrEnable = true;` and `serialPort.RtsEnable = true;` before `Open()`. The
+   classic Nano's USB-UART bridge streams regardless of DTR, so the change is safe for both
+   boards (on a classic Nano, DTR-on-open also triggers the normal auto-reset, same as the
+   Arduino Serial Monitor).
+
 Not changed: the serial message protocol (`<channel:value>` text frames), the neuron/engine
-model, all examples, and the Unity package. The Unity side needs no modification — it sees
-the same COM-port text protocol either way.
+model, and all examples. Protocol-compatible with upstream on both sides.
 
 ## Verification status
 
