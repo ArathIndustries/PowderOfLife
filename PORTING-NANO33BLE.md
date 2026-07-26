@@ -133,6 +133,27 @@ Related console noise that resolves itself once the above compile errors clear: 
 `Color primaries 0 is unknown or unsupported by WindowsMediaFoundation` warning concerns an
 example-scene MP4 and is cosmetic (possible color shift in that video only).
 
+### Unity runs but the scene never registers the sensors (no serial data)
+
+Isolate the board first: close Unity, open the Arduino IDE Serial Monitor at 9600 baud.
+A working board streams frames like `<0:512.0000><1:377.0000>` that change when the input does.
+
+- No frames: sketch not running — re-upload from this fork's library.
+- Frames present but values do not respond: the sketch was likely compiled against upstream 0.1
+  on a Nano 33 BLE (its `analogRead(0)` reads the wrong pin on Mbed cores — fixed in this fork).
+  Replace the library with this fork's zip and re-upload. Also verify wiring: wipers on A0/A1,
+  pot outer legs on 3V3/GND.
+- Frames good, Unity still silent — check in order:
+  1. The project's `SerialNode.cs` must contain `serialPort.DtrEnable = true;` (this fork's
+     package has it; upstream's does not). Without it a native-USB board (Nano 33 BLE) sends
+     nothing to Unity, even though the Serial Monitor works — the Monitor asserts DTR itself.
+  2. Port selection: `FindSerialPort()` uses the FIRST port on the machine, and Windows often
+     has phantom Bluetooth COM ports. The Unity Console logs the chosen port; compare with
+     Arduino IDE > Tools > Port. Disable the Bluetooth serial ports in Device Manager or
+     hardcode `portName` if they collide.
+  3. Only one program can hold the port: close the Serial Monitor before pressing Play.
+  4. Custom scenes: each SerialSensor's channel number must match the sketch (0, 1, ...).
+
 ## License
 
 Upstream is GPL v2 (code) / CERN OHL-W v2 (hardware) / CC BY-SA 4.0 (docs); this fork keeps
