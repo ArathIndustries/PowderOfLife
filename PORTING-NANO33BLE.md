@@ -115,6 +115,24 @@ is not in the Library Manager index. The old copy must be deleted by hand:
 4. Reopen the IDE, then Sketch > Include Library > Add .ZIP Library with this fork's zip.
 5. Verify: `libraries/PowderOfLife/library.properties` now reads `version=0.2.0`.
 
+### Unity: CS0234 "Ports does not exist in the namespace System.IO" and/or "UI does not exist in the namespace UnityEngine"
+
+Both appear on importing the package into a fresh Unity project; they are project-settings
+requirements, not bugs in the package (upstream has the same requirements).
+
+1. `System.IO.Ports` missing (SerialNode.cs, SerialSensor.cs): Unity's default API level,
+   .NET Standard 2.1, does not include `SerialPort`. Fix: Edit > Project Settings > Player >
+   Other Settings > Configuration > **Api Compatibility Level = .NET Framework**
+   (labeled ".NET 4.x" in Unity 2019/2020).
+2. `UnityEngine.UI` / `Button` / `Text` / `CanvasScaler` missing (ButtonSensor.cs,
+   TextDriver.cs, CanvasDriver.cs): the project lacks the Unity UI package. Fix: Window >
+   Package Manager > Packages: Unity Registry > install **Unity UI** (`com.unity.ugui`).
+
+Related console noise that resolves itself once the above compile errors clear: the
+`Script updater ... failed to produce updates.txt` message. The
+`Color primaries 0 is unknown or unsupported by WindowsMediaFoundation` warning concerns an
+example-scene MP4 and is cosmetic (possible color shift in that video only).
+
 ## License
 
 Upstream is GPL v2 (code) / CERN OHL-W v2 (hardware) / CC BY-SA 4.0 (docs); this fork keeps
