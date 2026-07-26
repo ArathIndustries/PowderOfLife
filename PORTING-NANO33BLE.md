@@ -1,5 +1,16 @@
 # Nano 33 BLE Port Notes
 
+> [!WARNING]
+> **⚡ DO NOT WIRE ANYTHING TO 5 V. The Nano 33 BLE is a 3.3 V board and its pins are NOT 5 V tolerant.**
+>
+> The original video/tutorial wires the potentiometers across **5 V** because the classic Nano
+> is a 5 V board. Doing the same on a Nano 33 BLE puts 5 V on an analog pin and can
+> **permanently damage the nRF52840**. On this board:
+>
+> - Pot outer legs → **3V3** and **GND**. Wipers → **A0** / **A1**.
+> - Never route **VIN** or the USB 5 V rail to anything that reaches a pin.
+> - You lose nothing: readings are still 0–1023 because the ADC reference scales with the supply.
+
 This fork of [andrewfrueh/PowderOfLife](https://github.com/andrewfrueh/PowderOfLife) adds
 support for the **Arduino Nano 33 BLE / Nano 33 BLE Sense Rev2** (nRF52840, Mbed-based core)
 while remaining compatible with the classic **Arduino Nano** (ATmega328P, AVR core) used in

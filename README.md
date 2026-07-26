@@ -14,12 +14,18 @@
 >    (or from [`Arduino/`](Arduino/) in this repo).
 > 2. Arduino IDE → Sketch → Include Library → **Add .ZIP Library**.
 > 3. Boards Manager → install **Arduino Mbed OS Nano Boards**; select *Arduino Nano 33 BLE*.
-> 4. Read [`PORTING-NANO33BLE.md`](PORTING-NANO33BLE.md) — it lists the code changes and the
->    **3.3 V wiring rule** (nRF52840 pins are not 5 V tolerant; wire sensors to 3V3, never 5 V).
+> 4. Read [`PORTING-NANO33BLE.md`](PORTING-NANO33BLE.md) for the full list of code changes
+>    and wiring instructions.
 >
 > Library source lives at [`Arduino/PowderOfLife/`](Arduino/PowderOfLife/) (upstream ships it
 > only as a zip); the zip is rebuilt from that source. Compile-verified for
 > `arduino:mbed_nano:nano33ble` and `arduino:avr:nano`. The Unity side is unchanged from upstream.
+
+> [!WARNING]
+> **⚡ The Nano 33 BLE is a 3.3 V board — its pins are NOT 5 V tolerant.** The original
+> tutorial wires the pots across 5 V; on this board that can permanently damage the chip.
+> Wire pot outer legs to **3V3**/**GND**, wipers to **A0**/**A1**. Readings are still 0–1023.
+> Details: [`PORTING-NANO33BLE.md`](PORTING-NANO33BLE.md).
 
 ## Introduction
 
